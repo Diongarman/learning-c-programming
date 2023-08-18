@@ -13,17 +13,30 @@ int isValid(char * s){
     int boolean = 0;
 
     //iterate over string of symbols
-    for (int i = 0; s[i] != '\0'; i++) {
+    for (int i = 0; i < strlen(s); i++) {
         // if opening
             //push to stack
+        if (s[i] == '(' || s[i] == '{'|| s[i] == '[') {
+            Stack[top] = s[i];
+            top++;
+
+        }
         //if closing
-            // compare top of stack to closing symbol
-                // if match
-                    //pop stack
-                //else
-                    //return false as imbalanced
+            // if stack isn't empty
+                // compare top of stack to closing symbol
+                    // if match
+                        //pop stack
+                    //else
+                        //return false as imbalanced
+            // else
+                //return false
         
     }
+
+    // if stack empty
+        //return true (balanced)
+    //else
+        // return false
 
     return boolean;
 }
