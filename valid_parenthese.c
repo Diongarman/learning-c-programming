@@ -9,7 +9,7 @@ typedef struct {
 } Stack;
 
 void initialiseStack (Stack *stack) {
-    stack->top = -1;
+    stack->top = 0;
 } 
 
 //write function for pushing to stack
@@ -24,11 +24,13 @@ void push(Stack *stack, char symbol) {
 }
 //write function for popping stack
 
-void pop(Stack *stack) {
+char pop(Stack *stack) {
     if (stack->top == -1) {
         printf("Stack Underflow! Cannot pop from an empty stack.\n");
+        return '\0'; // Return a null character to indicate error
     } else {
-        stack->top--;  // Just decrement the top index
+         // Just decrement the top index
+        return stack->arr[stack->top--];
     }
 
 }
@@ -41,22 +43,36 @@ int isValid(char * s){
 
     //iterate over string of symbols
     for (int i = 0; i < strlen(s); i++) {
-        // if opening
-            //push to stack
+
         if (s[i] == '(' || s[i] == '{'|| s[i] == '[') {
             push(&myStack, s[i]);
 
 
-        } else if (s[i] == ')' || s[i] == '}' || s[i] == ']') {
-            pop(&myStack);
+        } else if (s[i] == ')') {
+            char poppedElem = pop(&myStack);
 
-            if (myStack.top < 0) {
+            if (myStack.top < 0 || poppedElem != '(') {
+                // printf("not (");
                 return 0;
             }
+        } else if (s[i] == '}' ) {
+            char poppedElem = pop(&myStack);
+
+            if (myStack.top < 0 || poppedElem != '{') {
+                return 0;
+            }
+
+        } else if (s[i] == ']') {
+            char poppedElem = pop(&myStack);
+
+            if (myStack.top < 0 || poppedElem != '[') {
+                return 0;
+            }
+
         }
         
     }
-
+    printf("top stack index is %d\n", myStack.top);
     if (myStack.top == 0) {
         return 1;
     } else {
@@ -69,5 +85,11 @@ int isValid(char * s){
 }
 
 int main() {
-    printf("%d\n", isValid("((())")); 
+    printf("%d\n", isValid("((())"));
+    printf("%d\n", isValid("{{{}}"));
+    printf("%d\n", isValid("())"));
+    printf("%d\n", isValid("{}}")); 
+
+    printf("%d\n", isValid("[({})]"));
+    printf("%d\n", isValid("()()()"));
 }
