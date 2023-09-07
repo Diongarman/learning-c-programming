@@ -85,11 +85,16 @@ int isValid(char * s){
 }
 
 int main() {
-    printf("%d\n", isValid("((())"));
-    printf("%d\n", isValid("{{{}}"));
-    printf("%d\n", isValid("())"));
-    printf("%d\n", isValid("{}}")); 
+    // printf("%d\n", isValid("((())"));
+    // printf("%d\n", isValid("{{{}}"));
+    // printf("%d\n", isValid("())"));
+    // printf("%d\n", isValid("{}}")); 
 
-    printf("%d\n", isValid("[({})]"));
+    // printf("%d\n", isValid("[({})]"));
     printf("%d\n", isValid("()()()"));
+    printf("%d\n", isValid("(){}[]"));
+    printf("%d\n", isValid("(()()()"));
+    printf("%d\n", isValid("()()())"));
+    printf("%d\n", isValid("(){}[]]"));
+    printf("%d\n", isValid("((){}[]"));
 }
